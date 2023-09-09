@@ -5,6 +5,7 @@
 *&              to SO10 textnodes; it may or may not evolve into
 *&              something a little user-friendlier.
 *& Author:      Andrea Borgia
+*& License:     GPL 3.0
 *&---------------------------------------------------------------------*
 REPORT zgetsmart.
 
@@ -42,17 +43,18 @@ START-OF-SELECTION.
 
 * FIXME: until I figure out downport (issue #3), this is out:
 *  gt_lines = CORRESPONDING #( gt_stxftxt ).
+* (same goes for FILTER)
   LOOP AT gt_stxftxt ASSIGNING FIELD-SYMBOL(<fs_stxftxt>).
     AT NEW iname.
       CLEAR gt_lines[].
       CLEAR g_header.
-      g_header-tdspras = <fs_stxftxt>-spras.
     ENDAT.
 
     MOVE-CORRESPONDING <fs_stxftxt> TO wa_line.
     APPEND wa_line TO gt_lines.
 
     AT END OF iname.
+      g_header-tdspras = <fs_stxftxt>-spras.
       g_header-tdobject = c_textobject.
       g_header-tdname = p_tdname.
       g_header-tdid = c_standardtext.
